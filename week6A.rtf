@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww29200\viewh18400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 const inp_box = document.querySelector(".todo-input");\
+const addBtn = document.querySelector(".add-btn");\
+const todo_list = document.querySelector(".todo-list");\
+\
+let todos = [];\
+\
+function addTodo() \{\
+    const todo_text = inp_box.value.trim();\
+    if (todo_text === "") return; // ignore empty input\
+    todos.push(todo_text);\
+    inp_box.value = ""; // clear input\
+    display();\
+\}\
+\
+function display() \{\
+    todo_list.innerHTML = "";\
+\
+    todos.forEach((t, i) => \{\
+        const li = document.createElement('li');\
+        li.textContent = t;\
+\
+        const delBtn = document.createElement('button');\
+        delBtn.textContent = 'Delete';\
+\
+        const editBtn = document.createElement('button');\
+        editBtn.textContent = 'Edit';\
+\
+        // delete function\
+        delBtn.onclick = function () \{\
+            todos.splice(i, 1);\
+            display();\
+        \};\
+\
+        // edit function\
+        editBtn.onclick = function () \{\
+            const newText = prompt("Edit your task:", todos[i]);\
+            if (newText !== null && newText.trim() !== "") \{\
+                todos[i] = newText;\
+                display();\
+            \}\
+        \};\
+\
+        li.appendChild(delBtn);\
+        li.appendChild(editBtn);\
+        todo_list.appendChild(li);\
+    \});\
+\}\
+}
